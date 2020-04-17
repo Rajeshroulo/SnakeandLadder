@@ -8,6 +8,8 @@ NO_PLAY=0
 POS=0
 INITIAL_POS=0
 GOAL=100
+dieplay=0
+
 declare -A posofplayer
 
 function tofindinitialposition( ) {
@@ -21,18 +23,18 @@ function tofindinitialposition( ) {
 
   function tochecknewpositon( ) {
    die=$((1+RANDOM%6))
-    check=$((RANDOM%3))
-	case $check in
+    Option=$((RANDOM%3))
+	case $Option in
 		$LADDER )
-			posOfPlayer[$player]=$((${posofPlayer[$player]}+$die))
-                       	if [ ${positionOfPlayer[$player]} -gt $GOAL ]
+			posofPlayer[$player]=$((${posofPlayer[$player]}+$die))
+                       	if [ ${positionofPlayer[$player]} -gt $GOAL ]
                        	then
                                	posofPlayer[$player]=$((${posofPlayer[$player]}-$die))
                        	fi
 		;;
        		$SNAKE )
                		posofPlayer[$player]=$((${posofPlayer[$player]}-$die))
-       			if [ ${posOfPlayer[$player]} -lt $INITIAL_POS ]
+       			if [ ${posofPlayer[$player]} -lt $INITIAL_POS ]
 			then
 				posofPlayer[$player]=$INITIAL_POS
 
@@ -48,7 +50,22 @@ function tofindinitialposition( ) {
   }
 
 
+ function toknowthewinner( ) {
+        tofindinitialposition
+        while [ $dieplay = 1 ]
+	do
+		for (( player=1; player<=$n; player++ ))
+		do
+			tochecknewposition
+			if [ ${posofPlayer[$player]} -eq $GOAL ]
+			then
+				winner=$player
+				break;
+			fi
+		done
+	done
 
-
-
-
+ }
+ toknowthewinner
+ echo the no of times dice played is $dieplay
+ echo the winner of the game is $winner
