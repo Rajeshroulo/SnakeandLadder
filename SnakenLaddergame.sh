@@ -51,12 +51,12 @@ function tofindinitialposition( ) {
 
 
  function toknowthewinner( ) {
-        tofindinitialposition
+        tofindinitialposition      #function call to find starting positions of players
         while [ $dieplay = 1 ]
 	do
 		for (( player=1; player<=$n; player++ ))
 		do
-			tochecknewposition
+			tochecknewposition      #to know the new positions of players
 			if [ ${posofPlayer[$player]} -eq $GOAL ]
 			then
 				winner=$player
@@ -66,6 +66,6 @@ function tofindinitialposition( ) {
 	done
 
  }
- toknowthewinner
+ toknowthewinner    #func call to find the winner of the game
  echo the no of times dice played is $dieplay
  echo the winner of the game is $winner
